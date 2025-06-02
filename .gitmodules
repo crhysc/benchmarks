@@ -1,0 +1,9 @@
+[submodule "models/atomgpt"]
+	path = models/atomgpt
+	url = https://github.com/usnistgov/atomgpt.git
+[submodule "models/cdvae"]
+	path = models/cdvae
+	url = https://github.com/crhysc/cdvae.git
+[submodule "models/flowmm"]
+	path = models/flowmm
+	url = https://github.com/crhysc/flowmm.git
