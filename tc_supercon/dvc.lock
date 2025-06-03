@@ -11,6 +11,6 @@ stages:
     outs:
     - path: agpt_tc_supercon
       hash: md5
-      md5: 4e1fba4ef8278bd3752e00c81c5fa339.dir
-      size: 332933
+      md5: 705c69fe44f17690243f7d0588855c1b.dir
+      size: 332895
       nfiles: 1001
