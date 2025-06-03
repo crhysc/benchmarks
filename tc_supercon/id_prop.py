@@ -141,9 +141,8 @@ def main() -> None:
             args.target_key: target_values,
         }
     )
-    id_prop = id_prop.iloc[1:]
     csv_path = out_dir / "id_prop.csv"
-    id_prop.to_csv(csv_path, index=False)
+    id_prop.to_csv(csv_path, index=False, header=False)
 
     print(f"✓ Wrote {len(structure_paths)} POSCAR files to {out_dir}")
     print(f"✓ Wrote {csv_path.name}")
