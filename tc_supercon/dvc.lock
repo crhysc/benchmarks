@@ -1,0 +1,9 @@
+schema: '2.0'
+stages:
+  data_agpt:
+    cmd: bash run_id_prop.sh
+    deps:
+    - path: run_id_prop.sh
+      hash: md5
+      md5: f8f06a3d7b59295d75b96520979f98e2
+      size: 258
