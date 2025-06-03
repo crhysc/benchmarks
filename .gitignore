@@ -193,4 +193,3 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 
-./job_runs/agpt_benchmark/config.json
