@@ -1,0 +1,5 @@
+stages:
+  data_agpt:
+    cmd: bash run_id_prop.sh
+    deps:
+    - run_id_prop.sh 
