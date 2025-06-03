@@ -3,3 +3,5 @@ stages:
     cmd: bash run_id_prop.sh
     deps:
     - run_id_prop.sh 
+    outs:
+    - agpt_tc_supercon
