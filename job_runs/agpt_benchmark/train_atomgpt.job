@@ -1,1 +1,19 @@
+#!/bin/bash
 
+#SBATCH --job-name=agpt_tc            
+#SBATCH --output=$BENCHMARKS_HOME/job_runs/       
+#SBATCH --partition=$PARTITION                
+#SBATCH --nodes=1                          
+#SBATCH --ntasks-per-node=4                # Run 4 tasks (processes) on the node
+#SBATCH --cpus-per-task=2                  # 2 CPU cores per task (for multi‐threaded code)
+#SBATCH --time=08:00:00                    # Max walltime (HH:MM:SS)
+#SBATCH --mem=8G                           # Total RAM for the job (8 GB)
+#SBATCH --mail-type=END,FAIL               # Send email on job END or FAIL
+#SBATCH --mail-user=$EMAIL                 # Where to send mail
+
+module load cuda ??
+conda activate my_atomgpt
+nvidia-smi
+
+python $BENCHMARKS_HOME/models/atomgpt/atomgpt/inverse_models/inverse_models.py \
+    --config_name $BENCHMARKS_HOME/job_runs/agpt
