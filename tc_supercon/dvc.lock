@@ -7,3 +7,10 @@ stages:
       hash: md5
       md5: f8f06a3d7b59295d75b96520979f98e2
       size: 258
+      isexec: true
+    outs:
+    - path: agpt_tc_supercon
+      hash: md5
+      md5: 4e1fba4ef8278bd3752e00c81c5fa339.dir
+      size: 332933
+      nfiles: 1001
