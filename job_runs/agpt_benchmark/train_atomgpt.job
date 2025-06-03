@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=agpt_tc            
-#SBATCH --output=$BENCHMARKS_HOME/job_runs/       
+#SBATCH --output=$BENCHMARKS_HOME/job_runs/fl_studio.out       
 #SBATCH --partition=$PARTITION                
 #SBATCH --nodes=1                          
 #SBATCH --ntasks-per-node=4                # Run 4 tasks (processes) on the node
