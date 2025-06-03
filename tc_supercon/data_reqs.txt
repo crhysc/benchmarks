@@ -1,0 +1,2 @@
+#!/bin/bash
+pip install jarvis-tools pymatgen numpy pandas tqdm
