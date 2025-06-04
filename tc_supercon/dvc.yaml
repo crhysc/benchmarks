@@ -2,16 +2,17 @@ stages:
   data_agpt:
     cmd: bash run_id_prop.sh
     deps:
-    - run_id_prop.sh 
+      - run_id_prop.sh
     outs:
-    - agpt_tc_supercon
+      - agpt_tc_supercon
+
   data_cdvae:
     cmd: bash run_cdvae_data.sh
     deps:
-    - run_cdvae_data.sh
+      - run_cdvae_data.sh
     outs:
-      - path:../models/cdvae/data/supercon
-        external: true
+      - path: ../models/cdvae/data/supercon
+        cache: false
       - path: ../models/cdvae/conf/data/supercon.yaml
-        external: true
+        cache: false
 
