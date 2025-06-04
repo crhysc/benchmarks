@@ -14,3 +14,55 @@ stages:
       md5: fd4176d81a9430ee0204fb309fe246df.dir
       size: 332906
       nfiles: 1001
+  data_cdvae:
+    cmd: bash run_cdvae_data.sh
+    deps:
+    - path: run_cdvae_data.sh
+      hash: md5
+      md5: 590b22ae47968be91194fc9f6d57016e
+      size: 626
+      isexec: true
+    outs:
+    - path: ../models/cdvae/conf/data/supercon.yaml
+      hash: md5
+      md5: eff3ab2a48ede6791ac51e36b8ca44dd
+      size: 182394
+      isexec: true
+    - path: ../models/cdvae/data/supercon
+      hash: md5
+      md5: 1560967ce519d380bd1804b975f399af.dir
+      size: 969525
+      nfiles: 3
+  agpt:
+    cmd: bash run_id_prop.sh
+    deps:
+    - path: run_id_prop.sh
+      hash: md5
+      md5: f8f06a3d7b59295d75b96520979f98e2
+      size: 258
+      isexec: true
+    outs:
+    - path: agpt_tc_supercon
+      hash: md5
+      md5: fd4176d81a9430ee0204fb309fe246df.dir
+      size: 332906
+      nfiles: 1001
+  cdvae:
+    cmd: bash run_cdvae_data.sh
+    deps:
+    - path: run_cdvae_data.sh
+      hash: md5
+      md5: 590b22ae47968be91194fc9f6d57016e
+      size: 626
+      isexec: true
+    outs:
+    - path: ../models/cdvae/conf/data/supercon.yaml
+      hash: md5
+      md5: 8fa4f20304fd3cd578d0ddf0d520a507
+      size: 182394
+      isexec: true
+    - path: ../models/cdvae/data/supercon
+      hash: md5
+      md5: 1560967ce519d380bd1804b975f399af.dir
+      size: 969525
+      nfiles: 3
