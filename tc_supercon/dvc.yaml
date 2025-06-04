@@ -5,3 +5,11 @@ stages:
     - run_id_prop.sh 
     outs:
     - agpt_tc_supercon
+  data_cdvae:
+    cmd: bash run_cdvae_data.sh
+    deps:
+    - run_cdvae_data.sh
+    outs:
+    - ../models/cdvae/data/supercon
+    - ../models/cdvae/conf/data/supercon.yaml
+
