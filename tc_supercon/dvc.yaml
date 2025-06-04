@@ -10,6 +10,8 @@ stages:
     deps:
     - run_cdvae_data.sh
     outs:
-    - ../models/cdvae/data/supercon
-    - ../models/cdvae/conf/data/supercon.yaml
+      - path:../models/cdvae/data/supercon
+        external: true
+      - path: ../models/cdvae/conf/data/supercon.yaml
+        external: true
 
