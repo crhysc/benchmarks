@@ -52,14 +52,14 @@ stages:
     deps:
     - path: run_cdvae_data.sh
       hash: md5
-      md5: 590b22ae47968be91194fc9f6d57016e
-      size: 626
+      md5: 792f12e6749ba128eb508cafe7b9e92e
+      size: 653
       isexec: true
     outs:
     - path: ../models/cdvae/conf/data/supercon.yaml
       hash: md5
-      md5: 8fa4f20304fd3cd578d0ddf0d520a507
-      size: 182394
+      md5: 4bbe8823ca3c632678edbfcb587f32e2
+      size: 2359
       isexec: true
     - path: ../models/cdvae/data/supercon
       hash: md5
