@@ -10,7 +10,7 @@ CrystalNN = local_env.CrystalNN(
     distance_cutoffs=None, x_diff_weight=-1, porous_adjustment=False
 )
 
-#lint test
+
 def get_id_train_val_test(
     total_size=1000,
     split_seed=123,
@@ -88,7 +88,7 @@ for ii, i in enumerate(dat):
             info["cif"] = pmg.to(fmt="cif")
             info["prop"] = i[prop]
             mem.append(info)
-        except Exception as exp:
+        except Exception:
             print(i)
             print(Atoms.from_dict(i["atoms"]))
             print()
