@@ -1,7 +1,8 @@
 # benchmarks
 setup:
 1) git submodule update --init --recursive
-2) pip install uv dvc
-3) cd tc_supercon; dvc repro -f
+2) conda install -n base -c conda-forge mamba
+3) pip install uv dvc
+4) cd tc_supercon; dvc repro -f
 
    
