@@ -3,7 +3,7 @@ set -e
 mkdir -p ../models/cdvae/data/supercon/
 uv pip install jarvis-tools pymatgen numpy pandas tqdm
 python generate_data_cdvae.py
-wget "https://github.com/crhysc/utilities/blob/main/supercon.yaml"
+wget https://raw.githubusercontent.com/crhysc/utilities/refs/heads/main/supercon.yaml
 python - <<'PYCODE'
 import os
 path = "../models/cdvae/data/supercon"
