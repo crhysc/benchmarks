@@ -6,7 +6,7 @@ from pymatgen.analysis import local_env
 from pymatgen.analysis.graphs import StructureGraph
 
 # --------------- USER-CONFIGURABLE PARAMETERS ---------------
-MAX_SIZE    = 25      # Maximum number of structures to gather
+MAX_SIZE    = 1000    # Maximum number of structures to gather
 SPLIT_SEED  = 123     # Random seed for reproducibility
 VAL_RATIO   = 0.1     # Fraction of MAX_SIZE to assign to validation
 TEST_RATIO  = 0.1     # Fraction of MAX_SIZE to assign to testing
