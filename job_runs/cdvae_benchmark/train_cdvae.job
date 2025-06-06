@@ -26,5 +26,5 @@ python -u -m cdvae.run data=supercon expname=supercon \
 	model.num_noise_level=2 \
 	data.train_max_epochs=1 \
 	train.pl_trainer.gpus=1 \
-	logging.wandb.log_model=False \
+	logging.wandb=None \
 	model.predict_property=True
