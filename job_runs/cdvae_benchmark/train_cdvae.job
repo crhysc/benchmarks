@@ -21,10 +21,8 @@ export PROJECT_ROOT="/lab/mml/kipp/677/jarvis/rhys/benchmarks/models/cdvae"
 export HYDRA_JOBS="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/hydra_outputs"
 export HYDRA_FULL_ERROR="1"
 export WABDB_DIR="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/wandb_outputs"
-export WANDB_ANONYMOUS="allow"
 python -u -m cdvae.run data=supercon expname=supercon \
 	model.num_noise_level=2 \
 	data.train_max_epochs=1 \
 	train.pl_trainer.gpus=1 \
-	logging.wandb=null \
 	model.predict_property=True
