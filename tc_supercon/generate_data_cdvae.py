@@ -84,7 +84,8 @@ def main():
                         CrystalNN,
                     )
                 info["cif"] = pmg.to(fmt="cif")
-                info["PROPERTY"] = entry[PROPERTY]
+                # <-- change here: use PROPERTY variable as the key -->
+                info[PROPERTY] = entry[PROPERTY]
                 collected.append(info)
             except Exception:
                 # Skip any entries that fail graph construction or CIF conversion
