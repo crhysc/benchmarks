@@ -63,6 +63,6 @@ stages:
       isexec: true
     - path: ../models/cdvae/data/supercon
       hash: md5
-      md5: 238d45420e2cc316fa34983f53a7f73e.dir
-      size: 23632
+      md5: d6c0c48ff46b968ea4293b1117826a18.dir
+      size: 916048
       nfiles: 3
