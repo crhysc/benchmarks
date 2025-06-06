@@ -15,6 +15,14 @@ source /home/crc8/miniconda3/etc/profile.d/conda.sh
 conda activate cdvae
 nvidia-smi
 
+
+
+export PROJECT_ROOT="/lab/mml/kipp/677/jarvis/rhys/benchmarks/models/cdvae"
+export HYDRA_JOBS="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/hydra_outputs"
+export HYDRA_FULL_ERROR="1"
+export WABDB_DIR="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/wandb_outputs"
+export WANDB_ANONYMOUS="allow"
+export WANDB_DISABLED="true"
 python -u -m cdvae.run data=supercon expname=supercon \
 	model.num_noise_level=2 \
 	data.train_max_epochs=1 \
