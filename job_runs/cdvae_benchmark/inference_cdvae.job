@@ -24,8 +24,9 @@ export WABDB_DIR="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchm
 #export WANDB_MODE="offline"
 source wandb_api_key.sh
 
-python /content/cdvae/scripts/evaluate.py \
-    --model_path ./hydra_outputs/singlerun/2025-06-06/supercon \
+echo "running python script"
+python ../../models/cdvae/scripts/evaluate.py \
+    --model_path /lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/hydra_outputs/singlerun/2025-06-06/supercon \
     --tasks opt \
     --n_step_each 5 \
     --num_batches_to_samples 5 \
