@@ -11,9 +11,11 @@ python supercon_preprocess.py \
 """
 from __future__ import annotations
 
-import argparse, random, json, hashlib
+import argparse
+import random
+import hashlib
 from pathlib import Path
-from typing import Optional, List, Tuple
+from typing import Optional, List
 
 import numpy as np
 import pandas as pd
@@ -22,8 +24,6 @@ from tqdm import tqdm
 from jarvis.db.figshare import data as jarvis_data
 from jarvis.core.atoms import Atoms
 from jarvis.io.vasp.inputs import Poscar
-from pymatgen.core import Structure
-from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
 
 
 # ───────────────────────── helpers ────────────────────────────────────────────
