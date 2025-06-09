@@ -26,8 +26,8 @@ source wandb_api_key.sh
 
 echo "running python script"
 python write_benchmark.py \
-    --run_dir  hydra_jobs/singlerun/2025-06-06/supercon \
-    --use_tensor opt \
+    --run_dir /lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/hydra_outputs/singlerun/2025-06-06/supercon \
+    --use_tensor recon \
     --data_dir ../../models/cdvae/data/supercon \
     --split    test \
     --output_csv AI-cdvae-AtomGen-Tc_supercon-dft_3d-test-rmse.csv \
