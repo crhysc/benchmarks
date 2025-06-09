@@ -34,12 +34,12 @@ stages:
       size: 969525
       nfiles: 3
   agpt:
-    cmd: bash run_id_prop.sh
+    cmd: bash scripts/run_id_prop.sh
     deps:
-    - path: run_id_prop.sh
+    - path: scripts/run_id_prop.sh
       hash: md5
-      md5: f8f06a3d7b59295d75b96520979f98e2
-      size: 258
+      md5: 396607484b12dd6c0245cf109c1cc624
+      size: 266
       isexec: true
     outs:
     - path: agpt_tc_supercon
@@ -48,12 +48,12 @@ stages:
       size: 332906
       nfiles: 1001
   cdvae:
-    cmd: bash run_cdvae_data.sh
+    cmd: bash scripts/run_cdvae_data.sh
     deps:
-    - path: run_cdvae_data.sh
+    - path: scripts/run_cdvae_data.sh
       hash: md5
-      md5: 6ecea83a0576a601b9e6d1ca41b0d452
-      size: 651
+      md5: 56a0a97bcd7f8d3fa6d319df592fcf57
+      size: 659
       isexec: true
     outs:
     - path: ../models/cdvae/conf/data/supercon.yaml
