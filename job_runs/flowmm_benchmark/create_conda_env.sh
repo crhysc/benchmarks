@@ -11,4 +11,5 @@ uv pip install -e . \
 	       -e remote/riemannian-fm \
 	       -e remote/cdvae \
 	       -e remote/DiffCSP-official
-	       print("Done")
+	
+echo "Done"
