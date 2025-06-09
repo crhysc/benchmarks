@@ -32,5 +32,6 @@ python write_benchmark.py \
     --split    test \
     --output_csv AI-cdvae-AtomGen-Tc_supercon-dft_3d-test-rmse.csv \
     --dump_json dft_3d_Tc_supercon_cdvae.json
+echo "Done"
 
 

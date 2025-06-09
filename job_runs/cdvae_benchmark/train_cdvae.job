@@ -29,3 +29,9 @@ python -u -m cdvae.run data=supercon expname=supercon \
 	data.train_max_epochs=1 \
 	train.pl_trainer.gpus=1 \
 	model.predict_property=True \
+
+echo "Done"
+
+
+
+	
