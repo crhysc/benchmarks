@@ -14,7 +14,7 @@ stand-alone script that
 
 Usage
 -----
-python make_cdvae_submission.py \
+python write_benchmark.py \
     --run_dir  /path/to/HYDRA_JOBS/singlerun/<RUN_ID>/supercon_test02 \
     --data_dir /path/to/cdvae/data/supercon \
     --split    test \
