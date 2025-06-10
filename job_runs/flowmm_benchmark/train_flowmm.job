@@ -10,13 +10,17 @@
 #SBATCH --time=24:00:00                    # Max walltime (HH:MM:SS)
 #SBATCH --mem=64G                          # Total RAM for the job (8 GB)
 
-module load cuda/11.8
+# setup
 source /home/crc8/miniconda3/etc/profile.d/conda.sh
+source wandb_api_key.sh
+module load cuda/11.8
 conda activate flowmm
-nvidia-smi
 export HYDRA_FULL_ERROR="1"
-cd /lab/mml/kipp/677/jarvis/rhys/benchmarks/models/flowmm/
+export WABDB_DIR="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/flowmm_benchmark/wandb_outputs"
 
+# commands
+nvidia-smi
+cd /lab/mml/kipp/677/jarvis/rhys/benchmarks/models/flowmm/
 bash /lab/mml/kipp/677/jarvis/rhys/benchmarks/models/flowmm/create_env_file.sh
 bash /lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/flowmm_benchmark/yamls.sh
 python -u -m scripts_model.run data=supercon model=null_params
