@@ -193,3 +193,16 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 job_runs/agpt_benchmark/fl_studio.out
+
+
+        job_runs/agpt_benchmark/AI-AtomGen-prop-dft_3d-test-rmse.csv
+        job_runs/agpt_benchmark/atomgpt_compiled_cache/
+        job_runs/agpt_benchmark/lora_model_m/
+        job_runs/agpt_benchmark/saved/
+        job_runs/cdvae_benchmark/.wandb_api_key.sh
+        job_runs/cdvae_benchmark/AI-cdvae-AtomGen-Tc_supercon-dft_3d-test-rmse.csv
+        job_runs/cdvae_benchmark/dft_3d_Tc_supercon_cdvae.json
+        job_runs/cdvae_benchmark/fl_studio.out
+        job_runs/cdvae_benchmark/hydra_outputs/
+        job_runs/cdvae_benchmark/wandb_outputs/
+        job_runs/flowmm_benchmark/fl_studio.out
