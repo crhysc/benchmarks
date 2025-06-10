@@ -82,6 +82,6 @@ stages:
       nfiles: 3
     - path: ../models/flowmm/scripts_model/conf/data/supercon.yaml
       hash: md5
-      md5: be0739083219dcc845272e7c7be39720
-      size: 2351
+      md5: 4c8cd0898c04ebc03e995a01ea3b1762
+      size: 2345
       isexec: true
