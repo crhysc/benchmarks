@@ -1,17 +1,26 @@
 stages:
   agpt:
-    cmd: bash run_id_prop.sh
+    cmd: bash scripts/run_id_prop.sh
     deps:
-      - run_id_prop.sh
+      - scripts/run_id_prop.sh
     outs:
       - agpt_tc_supercon
   cdvae:
-    cmd: bash run_cdvae_data.sh
+    cmd: bash scripts/run_cdvae_data.sh
     deps:
-      - run_cdvae_data.sh
+      - scripts/run_cdvae_data.sh
     outs:
       - ../models/cdvae/data/supercon:
           cache: false      
       - ../models/cdvae/conf/data/supercon.yaml:
+          cache: false
+  flowmm:
+    cmd: bash scripts/run_flowmm_data.sh
+    deps:
+      - scripts/run_flowmm_data.sh
+    outs:
+      - ../models/flowmm/data/supercon:
+          cache: false
+      - ../models/flowmm/scripts_model/conf/data/supercon.yaml:
           cache: false
 
