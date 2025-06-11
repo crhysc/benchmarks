@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=cdvae_tc            
+#SBATCH --job-name=flowmm_tc            
 #SBATCH --output=/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/flowmm_benchmark/fl_studio.out
 #SBATCH --partition=batch
 #SBATCH --nodes=1                         
