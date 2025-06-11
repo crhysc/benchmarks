@@ -16,7 +16,7 @@ mv ./test.csv ../models/flowmm/data/supercon/
 
 # pull hydra config yaml
 cd ../models/flowmm/scripts_model/conf/data/
-wget https://raw.githubusercontent.com/crhysc/utilities/refs/heads/main/supercon.yaml
+#wget https://raw.githubusercontent.com/crhysc/utilities/refs/heads/main/supercon.yaml
 
 
 
