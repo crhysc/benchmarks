@@ -12,15 +12,11 @@ stages:
     outs:
       - ../models/cdvae/data/supercon:
           cache: false      
-      - ../models/cdvae/conf/data/supercon.yaml:
-          cache: false
   flowmm:
     cmd: bash scripts/run_flowmm_data.sh
     deps:
       - scripts/run_flowmm_data.sh
     outs:
       - ../models/flowmm/data/supercon:
-          cache: false
-      - ../models/flowmm/scripts_model/conf/data/supercon.yaml:
           cache: false
 
