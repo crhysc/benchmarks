@@ -15,7 +15,9 @@ from __future__ import annotations
 import argparse
 import ast
 import hashlib
+import os
 import random
+import traceback
 from pathlib import Path
 from typing import List, Optional
 
@@ -26,6 +28,18 @@ from tqdm import tqdm
 from pymatgen.core import Structure
 from jarvis.core.atoms import Atoms
 from jarvis.io.vasp.inputs import Poscar
+
+
+# ────────────────────── debug helpers ────────────────────────────
+#   • set DEBUG=true … to enable
+#   • use dprint() instead of print() for conditional logging
+
+DEBUG = os.getenv("DEBUG", "false").lower() == "true"
+
+def dprint(*args, **kwargs):
+    """Debug-print if DEBUG=true."""
+    if DEBUG:
+        print(*args, **kwargs)
 
 
 # ───────────────────────── helpers ────────────────────────────────────────────
@@ -40,39 +54,61 @@ def make_dataframe_from_csv(
     combined = pd.concat(dfs, ignore_index=True)
 
     records: list[dict] = []
+
+    # counters for post-mortem
+    counts = {
+        "invalid_target": 0,
+        "struct_parse_fail": 0,
+        "convert_fail": 0,
+        "poscar_fail": 0,
+        "kept": 0,
+    }
+
     iter_rows = tqdm(
         combined.itertuples(index=False),
         total=len(combined),
         desc="Parsing CSV rows",
     )
-    for row in iter_rows:
+
+    for idx, row in enumerate(iter_rows):
         target_val = getattr(row, target_key, "na")
         if (
             target_val in ("na", None)
-            or (
-                isinstance(target_val, float)
-                and np.isnan(target_val)
-            )
+            or (isinstance(target_val, float) and np.isnan(target_val))
         ):
+            counts["invalid_target"] += 1
+            dprint(f"[skip #{idx}] invalid target ({target_val})")
             continue  # skip invalid target
 
         # 1) Parse the pymatgen Structure dict that is stored as a string
         try:
             struct_dict = ast.literal_eval(getattr(row, "structure"))
             pmg_struct = Structure.from_dict(struct_dict)
-        except Exception:
+        except Exception as e:
+            counts["struct_parse_fail"] += 1
+            dprint(f"[skip #{idx}] structure parse failed: {e}")
+            if DEBUG and counts["struct_parse_fail"] <= 3:
+                traceback.print_exc()
             continue  # malformed structure string → skip
 
         # 2) Convert to a JARVIS Atoms object for Poscar writing
         try:
             atoms = Atoms.from_pymatgen(pmg_struct)
-        except Exception:
+        except Exception as e:
+            counts["convert_fail"] += 1
+            dprint(f"[skip #{idx}] Atoms conversion failed: {e}")
+            if DEBUG and counts["convert_fail"] <= 3:
+                traceback.print_exc()
             continue  # conversion failed → skip
 
         # 3) Sanity-check: can Poscar serialize it?
         try:
             _ = Poscar(atoms)
-        except Exception:
+        except Exception as e:
+            counts["poscar_fail"] += 1
+            dprint(f"[skip #{idx}] Poscar serialisation failed: {e}")
+            if DEBUG and counts["poscar_fail"] <= 3:
+                traceback.print_exc()
             continue  # malformed lattice / species → skip
 
         records.append(
@@ -82,9 +118,16 @@ def make_dataframe_from_csv(
                 target_key: target_val,
             }
         )
+        counts["kept"] += 1
 
         if max_size is not None and len(records) == max_size:
             break  # hard-cap just like the original script
+
+    # final tallies
+    if DEBUG:
+        dprint("\n─── row filtering summary ───")
+        for k, v in counts.items():
+            dprint(f"{k:<20}: {v}")
 
     return pd.DataFrame(records)
 
@@ -162,7 +205,12 @@ def main() -> None:
     print(f"✓ Wrote {csv_path.name}")
     print(f"SHA-10 of ids: {sha(structure_paths)}")
 
+    if DEBUG and not structure_paths:
+        dprint(
+            "\nNo structures survived the filters. "
+            "Check the summary above for the dominant failure mode."
+        )
+
 
 if __name__ == "__main__":
     main()
-

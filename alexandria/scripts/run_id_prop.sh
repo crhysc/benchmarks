@@ -2,6 +2,7 @@
 set -e
 mkdir -p agpt_alexandria
 uv pip install jarvis-tools pymatgen numpy pandas tqdm
+export DEBUG="true"
 python scripts/id_prop.py \
     --csv-files dataset1.csv dataset2.csv \
     --id-key mat_id \
