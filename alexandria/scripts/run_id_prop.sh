@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
-mkdir -p agpt_tc_supercon
+mkdir -p agpt_alexandria
 uv pip install jarvis-tools pymatgen numpy pandas tqdm
-python scripts/id_prop.py \
-    --dataset dft_3d \
-    --id-key jid \
-    --output agpt_tc_supercon \
-    --target Tc_supercon \
-    --seed 123 \
-    --max-size 1000
+python scripts/id_prop_csv.py \
+    --csv-files dataset1.csv dataset2.csv \
+    --id-key mat_id \
+    --target Tc \
+    --output agpt_alexandria
+
+
+
