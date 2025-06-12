@@ -6,3 +6,6 @@
 	path = models/flowmm
 	url = git@github.com:crhysc/flowmm.git
 	branch = main
+[submodule "models/cdvae"]
+	path = models/cdvae
+	url = git@github.com:crhysc/cdvae.git
