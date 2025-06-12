@@ -3,7 +3,6 @@ set -e
 mkdir -p ../models/cdvae/data/supercon/
 uv pip install jarvis-tools pymatgen numpy pandas tqdm
 python scripts/generate_data_cdvae.py
-#wget https://raw.githubusercontent.com/crhysc/utilities/refs/heads/main/supercon.yaml
 python - <<'PYCODE'
 import os
 path = "../models/cdvae/data/supercon"
@@ -14,9 +13,5 @@ for file in files:
 		os.remove(file_path)
 	os.rename(file, file_path)
 yaml_path = "../models/cdvae/conf/data/supercon.yaml"
-if not os.path.exists(yaml_path):
-	os.rename("supercon.yaml", yaml_path)
-else:
-	os.remove("supercon.yaml")
 PYCODE
 
