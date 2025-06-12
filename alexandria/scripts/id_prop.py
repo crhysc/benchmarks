@@ -1,94 +1,114 @@
 #!/usr/bin/env python
 """
-supercon_preprocess.py  –  Python 3.9 compatible
+id_prop_csv.py – Build POSCAR + id_prop.csv from one or more Alexandria-style CSVs.
 
 Example
 -------
-python supercon_preprocess.py \
-    --dataset dft_3d --id-key jid --target Tc_supercon \
+python id_prop_csv.py \
+    --csv-files dataset1.csv dataset2.csv \
+    --id-key mat_id --target Tc \
     --seed 123 --max-size 1000 \
-    --output data/supercon
+    --output data/supercon_csv
 """
 from __future__ import annotations
 
 import argparse
-import random
+import ast
 import hashlib
+import random
 from pathlib import Path
-from typing import Optional, List
+from typing import List, Optional
 
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-from jarvis.db.figshare import data as jarvis_data
+from pymatgen.core import Structure
 from jarvis.core.atoms import Atoms
 from jarvis.io.vasp.inputs import Poscar
 
 
 # ───────────────────────── helpers ────────────────────────────────────────────
-def make_dataframe(
-    dataset_name: str,
+def make_dataframe_from_csv(
+    csv_paths: list[Path],
     id_key: str,
     target_key: str,
     max_size: Optional[int],
 ) -> pd.DataFrame:
-    """Download JARVIS records and keep those with a defined target.
+    """Read one or many CSV files and keep rows with a valid target value."""
+    dfs = [pd.read_csv(p) for p in csv_paths]
+    combined = pd.concat(dfs, ignore_index=True)
 
-    If --max-size is given, we **stop as soon as we have exactly that many
-    valid structures** (i.e. after filtering out `"na"` / `None` targets).
-    The returned DataFrame has columns:
-      - id_key        (e.g. "jid")
-      - "atoms"       (a jarvis.core.Atoms instance)
-      - target_key    (e.g. "Tc_supercon")
-    """
-    records: List[dict] = []
-    for item in tqdm(jarvis_data(dataset_name), desc="Downloading/JARVIS"):
-        target_val = item.get(target_key, "na")
-        if target_val in ("na", None):
+    records: list[dict] = []
+    iter_rows = tqdm(
+        combined.itertuples(index=False),
+        total=len(combined),
+        desc="Parsing CSV rows",
+    )
+    for row in iter_rows:
+        target_val = getattr(row, target_key, "na")
+        if (
+            target_val in ("na", None)
+            or (
+                isinstance(target_val, float)
+                and np.isnan(target_val)
+            )
+        ):
             continue  # skip invalid target
 
-        # Build a JARVIS Atoms object from the raw dictionary
+        # 1) Parse the pymatgen Structure dict that is stored as a string
         try:
-            atoms = Atoms.from_dict(item["atoms"])
+            struct_dict = ast.literal_eval(getattr(row, "structure"))
+            pmg_struct = Structure.from_dict(struct_dict)
         except Exception:
-            continue  # skip if Atoms.from_dict fails
+            continue  # malformed structure string → skip
 
-        # (Optionally) double‐check that we can convert to POSCAR via Poscar(...)
+        # 2) Convert to a JARVIS Atoms object for Poscar writing
         try:
-            _ = Poscar(atoms)  # will raise if the Atoms object is malformed
+            atoms = Atoms.from_pymatgen(pmg_struct)
         except Exception:
-            continue  # skip any structure that Poscar() can't handle
+            continue  # conversion failed → skip
+
+        # 3) Sanity-check: can Poscar serialize it?
+        try:
+            _ = Poscar(atoms)
+        except Exception:
+            continue  # malformed lattice / species → skip
 
         records.append(
             {
-                id_key: item[id_key],       # keep original identifier
-                "atoms": atoms,             # store the Atoms instance
+                id_key: getattr(row, id_key),
+                "atoms": atoms,
                 target_key: target_val,
             }
         )
 
-        # --- stop exactly at the requested cap -------------------------------
         if max_size is not None and len(records) == max_size:
-            break
+            break  # hard-cap just like the original script
 
     return pd.DataFrame(records)
 
 
 def sha(lst) -> str:
-    m = hashlib.sha256()
+    h = hashlib.sha256()
     for x in lst:
-        m.update(str(x).encode())
-        m.update(b",")
-    return m.hexdigest()[:10]
+        h.update(str(x).encode())
+        h.update(b",")
+    return h.hexdigest()[:10]
 
 
 # ──────────────────────────── CLI ─────────────────────────────────────────────
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dataset", required=True)
-    ap.add_argument("--id-key", default="jid")
-    ap.add_argument("--target", dest="target_key", default="Tc_supercon")
+    ap.add_argument(
+        "--csv-files",
+        nargs="+",
+        required=True,
+        metavar="CSV",
+        help="One or more CSV files produced from the Alexandria dataset.",
+    )
+    ap.add_argument("--id-key", default="mat_id")
+    ap.add_argument("--target", dest="target_key", default="Tc")
     ap.add_argument(
         "--output",
         required=True,
@@ -104,13 +124,14 @@ def main() -> None:
     args = ap.parse_args()
 
     random.seed(args.seed)
-    np.random.seed(args.seed)  # deterministic ordering if numpy is used later
+    np.random.seed(args.seed)
 
-    # Build a DataFrame that holds `jid`, the Atoms object, and target
-    df = make_dataframe(args.dataset, args.id_key, args.target_key, args.max_size)
-    print(f"Collected {len(df)} records (max-size={args.max_size})")
+    csv_paths = [Path(p).expanduser().resolve() for p in args.csv_files]
+    df = make_dataframe_from_csv(
+        csv_paths, args.id_key, args.target_key, args.max_size
+    )
+    print(f"Collected {len(df)} valid records (max-size={args.max_size})")
 
-    # ── write outputs ────────────────────────────────────────────────────────
     out_dir = Path(args.output).expanduser().resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -120,26 +141,19 @@ def main() -> None:
     print("Writing POSCAR files …")
     for _, row in tqdm(df.iterrows(), total=len(df)):
         jid = row[args.id_key]
-        atoms = row["atoms"]           # jarvis.core.Atoms instance
+        atoms = row["atoms"]
         target_val = row[args.target_key]
 
-        # Build the filename, e.g. "JVASP-12345.vasp"
         fname = f"{jid}.vasp"
         fpath = out_dir / fname
 
-        # Use the Poscar API to write directly
-        p = Poscar(atoms)              # wrap the JARVIS Atoms in a Poscar
-        p.write_file(str(fpath))       # write to "<output>/<jid>.vasp"
+        Poscar(atoms).write_file(str(fpath))
 
-        structure_paths.append(fname)  # CSV should reference just the basename
+        structure_paths.append(fname)
         target_values.append(target_val)
 
-    # Build id_prop.csv
     id_prop = pd.DataFrame(
-        {
-            "structure_path": structure_paths,
-            args.target_key: target_values,
-        }
+        {"structure_path": structure_paths, args.target_key: target_values}
     )
     csv_path = out_dir / "id_prop.csv"
     id_prop.to_csv(csv_path, index=False, header=False)
@@ -151,3 +165,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
