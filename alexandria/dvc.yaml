@@ -1,6 +1,6 @@
 stages:
   get_csv:
-    cmd: bash scripts/get_csvs.sh
+    cmd: bash scripts/get_csv.sh
     deps:
      - scripts/get_csv.sh
     outs:
