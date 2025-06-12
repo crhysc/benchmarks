@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 """
-id_prop_csv.py – Build POSCAR + id_prop.csv from one or more Alexandria-style CSVs.
+id_prop.py – Build POSCAR + id_prop.csv from one or more Alexandria-style CSVs.
 
 Example
 -------
-python id_prop_csv.py \
+python id_prop.py \
     --csv-files dataset1.csv dataset2.csv \
     --id-key mat_id --target Tc \
     --seed 123 --max-size 1000 \

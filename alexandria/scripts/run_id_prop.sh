@@ -2,7 +2,7 @@
 set -e
 mkdir -p agpt_alexandria
 uv pip install jarvis-tools pymatgen numpy pandas tqdm
-python scripts/id_prop_csv.py \
+python scripts/id_prop.py \
     --csv-files dataset1.csv dataset2.csv \
     --id-key mat_id \
     --target Tc \
