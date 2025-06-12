@@ -1,12 +1,10 @@
 #!/bin/bash
 # run data preprocessor
 python scripts/supercon_preprocess.py \
-        --dataset dft_3d \
-        --id-key jid \
-        --target Tc_supercon \
-        --train-ratio 0.8 --val-ratio 0.1 --test-ratio 0.1 \
-        --seed 123 \
-        --max-size 25
+    --csv-files dataset1.csv dataset2.csv \
+    --id-key mat_id --target Tc \
+    --train-ratio 0.8 --val-ratio 0.1 --test-ratio 0.1 \
+    --seed 123 --max-size 1000
 
 # move everything to the right spot
 mkdir -p ../models/flowmm/data/alexandria
