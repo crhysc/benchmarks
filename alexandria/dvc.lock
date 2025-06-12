@@ -29,14 +29,14 @@ stages:
     deps:
     - path: scripts/run_id_prop.sh
       hash: md5
-      md5: f52a520968da433050468a831e5993a9
-      size: 243
+      md5: 0ecf63a06ebbf4e55eeb217ddbaf51ed
+      size: 312
     outs:
     - path: agpt_alexandria
       hash: md5
-      md5: eef0245b358fc6123a52e6406ccc304e.dir
-      size: 0
-      nfiles: 1
+      md5: 9e880fd36100fb2d2134534f4d3ce598.dir
+      size: 232303
+      nfiles: 1001
   cdvae:
     cmd: bash scripts/run_cdvae_data.sh
     deps:
