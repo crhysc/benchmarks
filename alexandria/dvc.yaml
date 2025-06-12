@@ -1,22 +1,31 @@
 stages:
+  get_csv:
+    cmd: bash scripts/get_csvs.sh
+    deps:
+     - scripts/get_csv.sh
+    outs:
+     - DS-A.pk.bz2
+     - DS-B.pk.bz2	
+     - dataset1.csv	
+     - dataset2.csv	
   agpt:
     cmd: bash scripts/run_id_prop.sh
     deps:
       - scripts/run_id_prop.sh
     outs:
-      - agpt_tc_supercon
+      - agpt_alexandria
   cdvae:
     cmd: bash scripts/run_cdvae_data.sh
     deps:
       - scripts/run_cdvae_data.sh
     outs:
-      - ../models/cdvae/data/supercon:
+      - ../models/cdvae/data/alexandria:
           cache: false      
   flowmm:
     cmd: bash scripts/run_flowmm_data.sh
     deps:
       - scripts/run_flowmm_data.sh
     outs:
-      - ../models/flowmm/data/supercon:
+      - ../models/flowmm/data/alexandria:
           cache: false
 
