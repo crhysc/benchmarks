@@ -52,15 +52,10 @@ stages:
     deps:
     - path: scripts/run_cdvae_data.sh
       hash: md5
-      md5: 56a0a97bcd7f8d3fa6d319df592fcf57
-      size: 659
+      md5: 2baa451dd6f303ecdf26d7f0c791ec03
+      size: 466
       isexec: true
     outs:
-    - path: ../models/cdvae/conf/data/supercon.yaml
-      hash: md5
-      md5: 73fb0d81400103ac077375b67ed4df13
-      size: 2347
-      isexec: true
     - path: ../models/cdvae/data/supercon
       hash: md5
       md5: d6c0c48ff46b968ea4293b1117826a18.dir
@@ -71,8 +66,8 @@ stages:
     deps:
     - path: scripts/run_flowmm_data.sh
       hash: md5
-      md5: 932de8db82527fa4db644b9fa4e6fff9
-      size: 638
+      md5: e786136925fc7ef5cfc2010c2b912220
+      size: 552
       isexec: true
     outs:
     - path: ../models/flowmm/data/supercon
@@ -80,8 +75,3 @@ stages:
       md5: 57454aa2fe595254f2167e43c6b6d0af.dir
       size: 49916
       nfiles: 3
-    - path: ../models/flowmm/scripts_model/conf/data/supercon.yaml
-      hash: md5
-      md5: 73fb0d81400103ac077375b67ed4df13
-      size: 2347
-      isexec: true
