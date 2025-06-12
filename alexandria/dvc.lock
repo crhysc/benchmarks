@@ -1,0 +1,65 @@
+schema: '2.0'
+stages:
+  get_csv:
+    cmd: bash scripts/get_csv.sh
+    deps:
+    - path: scripts/get_csv.sh
+      hash: md5
+      md5: 875e60f4966616ae798da23d79f353f9
+      size: 446
+    outs:
+    - path: DS-A.pk.bz2
+      hash: md5
+      md5: 3bd95aac17cf87636195c174e23b4444
+      size: 1981755
+    - path: DS-B.pk.bz2
+      hash: md5
+      md5: 1b662219606bc8faa1ecc4ece2fbcc78
+      size: 271220
+    - path: dataset1.csv
+      hash: md5
+      md5: b2eaae6c6f558b29eaa305f686f88866
+      size: 10898472
+    - path: dataset2.csv
+      hash: md5
+      md5: c953558a600a92b925b04693d3084e1f
+      size: 1463809
+  agpt:
+    cmd: bash scripts/run_id_prop.sh
+    deps:
+    - path: scripts/run_id_prop.sh
+      hash: md5
+      md5: f52a520968da433050468a831e5993a9
+      size: 243
+    outs:
+    - path: agpt_alexandria
+      hash: md5
+      md5: eef0245b358fc6123a52e6406ccc304e.dir
+      size: 0
+      nfiles: 1
+  cdvae:
+    cmd: bash scripts/run_cdvae_data.sh
+    deps:
+    - path: scripts/run_cdvae_data.sh
+      hash: md5
+      md5: 085216160f6c95685b2c34dd25ebae01
+      size: 611
+    outs:
+    - path: ../models/cdvae/data/alexandria
+      hash: md5
+      md5: 87a44972489739c13185dd462a6b6518.dir
+      size: 927167
+      nfiles: 3
+  flowmm:
+    cmd: bash scripts/run_flowmm_data.sh
+    deps:
+    - path: scripts/run_flowmm_data.sh
+      hash: md5
+      md5: 35fb973aa80a5cbce475a6c1b42d1f28
+      size: 589
+    outs:
+    - path: ../models/flowmm/data/alexandria
+      hash: md5
+      md5: 728e4dad586adbf2d045482abfd2c9e0.dir
+      size: 2119979
+      nfiles: 3
