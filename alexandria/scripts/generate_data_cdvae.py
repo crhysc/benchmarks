@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-generate_data_cdvae_csv.py – Build train/val/test CSV splits from Alexandria
+generate_data_cdvae.py – Build train/val/test CSV splits from Alexandria
 superconductivity CSV files.
 
 Example

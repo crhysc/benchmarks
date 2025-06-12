@@ -2,7 +2,7 @@
 set -e
 mkdir -p ../models/cdvae/data/alexandria/
 uv pip install jarvis-tools pymatgen numpy pandas tqdm
-python scripts/generate_data_cdvae_csv.py \
+python scripts/generate_data_cdvae.py \
     --csv-files dataset1.csv dataset2.csv \
     --id-key mat_id \
     --target Tc \
