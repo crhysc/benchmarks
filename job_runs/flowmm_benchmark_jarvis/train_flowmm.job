@@ -26,7 +26,12 @@ bash /lab/mml/kipp/677/jarvis/rhys/benchmarks/models/flowmm/create_env_file.sh
 python -u -m scripts_model.run \
 	     data=supercon \
 	     model=null_params \
-	     hydra.run.dir=$FLOWMM_RUN_ROOT
+	     hydra.run.dir=$FLOWMM_RUN_ROOT \
+             train.model_checkpoints.save_top_k=1 \
+             train.pl_trainer.max_epochs=10 \
+             logging.val_check_interval=1 \
+             train.model_checkpoints.save_last=false \
+             train.model_checkpoitns.dirpath=$FLOWMM_RUN_ROOT/checkpoints
 
 echo "Done"
 
