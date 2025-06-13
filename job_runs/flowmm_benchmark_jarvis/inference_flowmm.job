@@ -18,15 +18,17 @@ conda activate flowmm
 export HYDRA_FULL_ERROR="1"
 export WABDB_DIR="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/flowmm_benchmark_jarvis/outputs/wandb_outputs"
 export FLOWMM_RUN_ROOT="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/flowmm_benchmark_jarvis/outputs/"
+export PATH_TO_CHECKPOINT="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/flowmm_benchmark_jarvis/outputs/rfmcsp-conditional-supercon/zjnmz1mi/checkpoints/epoch=8-step=900.ckpt"
+export NAME_OF_SUBDIRECTORY_AT_CHECKPOINT=""
+export SLOPE_OF_INFERENCE_ANTI_ANNEALING="2"
 
 # commands
 nvidia-smi
 cd /lab/mml/kipp/677/jarvis/rhys/benchmarks/models/flowmm/
 bash /lab/mml/kipp/677/jarvis/rhys/benchmarks/models/flowmm/create_env_file.sh
-python -u -m scripts_model.run \
-	     data=supercon \
-	     model=null_params \
-	     hydra.run.dir=$FLOWMM_RUN_ROOT
+python scripts_model/evaluate.py generate ${PATH_TO_CHECKPOINT} --subdir ${NAME_OF_SUBDIRECTORY_AT_CHECKPOINT} \
+	--inference_anneal_slope ${SLOPE_OF_INFERENCE_ANTI_ANNEALING} --stage test && \
+python scripts_model/evaluate.py consolidate ${PATH_TO_CHECKPOINT} --subdir ${NAME_OF_SUBDIRECTORY_AT_CHECKPOINT}
 
 echo "Done"
 
