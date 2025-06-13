@@ -6,7 +6,7 @@ python scripts/supercon_preprocess.py \
         --target Tc_supercon \
         --train-ratio 0.8 --val-ratio 0.1 --test-ratio 0.1 \
         --seed 123 \
-        --max-size 25
+        --max-size 1000
 
 # move everything to the right spot
 mkdir -p ../models/flowmm/data/supercon

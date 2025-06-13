@@ -66,12 +66,12 @@ stages:
     deps:
     - path: scripts/run_flowmm_data.sh
       hash: md5
-      md5: e786136925fc7ef5cfc2010c2b912220
-      size: 552
+      md5: 5846c493fbc6c807528ceec8870659df
+      size: 604
       isexec: true
     outs:
     - path: ../models/flowmm/data/supercon
       hash: md5
-      md5: 57454aa2fe595254f2167e43c6b6d0af.dir
-      size: 49916
+      md5: d0560cccfcbd6f447378fc0ab33dfefa.dir
+      size: 2024420
       nfiles: 3
