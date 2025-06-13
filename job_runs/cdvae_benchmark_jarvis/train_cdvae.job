@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --job-name=cdvae_tc            
-#SBATCH --output=/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/fl_studio.out
+#SBATCH --output=/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark_jarvis/fl_studio.out
 #SBATCH --partition=batch
 #SBATCH --nodes=1                         
 #SBATCH --gres=gpu:1
@@ -18,16 +18,20 @@ nvidia-smi
 
 
 export PROJECT_ROOT="/lab/mml/kipp/677/jarvis/rhys/benchmarks/models/cdvae"
-export HYDRA_JOBS="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/hydra_outputs"
+export HYDRA_JOBS="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark_jarvis/hydra_outputs"
 export HYDRA_FULL_ERROR="1"
-export WABDB_DIR="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/wandb_outputs"
+export WABDB_DIR="/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark_jarvis/wandb_outputs"
 #export WANDB_MODE="offline"
 source wandb_api_key.sh
 
-echo "running inference"
-python ../../models/cdvae/scripts/evaluate.py \
-    --model_path /lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/hydra_outputs/singlerun/2025-06-06/supercon \
-    --tasks recon \
-    --num_evals 1
+python -u -m cdvae.run data=supercon expname=supercon \
+	model.num_noise_level=2 \
+	data.train_max_epochs=1 \
+	train.pl_trainer.gpus=1 \
+	model.predict_property=True \
 
 echo "Done"
+
+
+
+	

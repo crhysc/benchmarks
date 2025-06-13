@@ -12,7 +12,7 @@ from jarvis.core.atoms import Atoms
 from eval_utils import load_model
 from pathlib import Path
 model, test_loader, _ = load_model(
-    Path("/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark/hydra_outputs/singlerun/2025-06-06/supercon"),
+    Path("/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/cdvae_benchmark_jarvis/hydra_outputs/singlerun/2025-06-06/supercon"),
     load_data=True
 )
 print("Test set size:", len(test_loader.dataset))

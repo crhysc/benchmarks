@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /lab/mml/kipp/677/jarvis/rhys/benchmarks/models/flowmm
+cd ~/Repositories/benchmarks/models/flowmm
 
 mamba env create -f environment.yml -y
 source /home/crc8/miniconda3/etc/profile.d/conda.sh
