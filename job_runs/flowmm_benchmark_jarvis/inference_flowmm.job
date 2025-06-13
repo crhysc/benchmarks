@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#SBATCH --job-name=flow_jarv           
+#SBATCH --job-name=flow_jarv
 #SBATCH --output=/lab/mml/kipp/677/jarvis/rhys/benchmarks/job_runs/flowmm_benchmark_jarvis/fl_studio.out
 #SBATCH --partition=batch
-#SBATCH --nodes=1                         
+#SBATCH --nodes=1
 #SBATCH --gres=gpu:1
 #SBATCH --ntasks-per-node=4                # Run 4 tasks (processes) on the node
 #SBATCH --cpus-per-task=2                  # 2 CPU cores per task (for multi‐threaded code)
@@ -34,4 +34,3 @@ echo "Done"
 
 
 
-	
